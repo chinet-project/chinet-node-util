@@ -1052,26 +1052,26 @@ namespace currency
     }
   }
   //---------------------------------------------------------------
-  // void load_wallet_transfer_info_flags(tools::wallet_public::wallet_transfer_info& x)
-  // {
-  //   x.is_service = currency::is_service_tx(x.tx);
-  //   x.is_mixing = currency::does_tx_have_only_mixin_inputs(x.tx);
-  //   x.is_mining = currency::is_coinbase(x.tx);
-  //   if (!x.is_mining)
-  //     x.fee = currency::get_tx_fee(x.tx);
-  //   else
-  //     x.fee = 0;
-  //   x.show_sender = currency::is_showing_sender_addres(x.tx);
-  //   tx_out htlc_out = AUTO_VAL_INIT(htlc_out);
-  //   txin_htlc htlc_in = AUTO_VAL_INIT(htlc_in);
+  void load_wallet_transfer_info_flags(tools::wallet_public::wallet_transfer_info& x)
+  {
+    x.is_service = currency::is_service_tx(x.tx);
+    x.is_mixing = currency::does_tx_have_only_mixin_inputs(x.tx);
+    x.is_mining = currency::is_coinbase(x.tx);
+    if (!x.is_mining)
+      x.fee = currency::get_tx_fee(x.tx);
+    else
+      x.fee = 0;
+    x.show_sender = currency::is_showing_sender_addres(x.tx);
+    tx_out htlc_out = AUTO_VAL_INIT(htlc_out);
+    txin_htlc htlc_in = AUTO_VAL_INIT(htlc_in);
 
-  //   x.tx_type = get_tx_type_ex(x.tx, htlc_out, htlc_in);
-  //   if(x.tx_type == GUI_TX_TYPE_HTLC_DEPOSIT && x.is_income == true)
-  //   {
-  //     //need to override amount
-  //     x.amount = htlc_out.amount;
-  //   }
-  // }
+    x.tx_type = get_tx_type_ex(x.tx, htlc_out, htlc_in);
+    if(x.tx_type == GUI_TX_TYPE_HTLC_DEPOSIT && x.is_income == true)
+    {
+      //need to override amount
+      x.amount = htlc_out.amount;
+    }
+  }
 
   //---------------------------------------------------------------
   uint64_t get_tx_type_ex(const transaction& tx, tx_out& htlc_out, txin_htlc& htlc_in)
@@ -2288,15 +2288,8 @@ namespace currency
       bool is_pos = h < 10 ? false : h % 2 == 0;
       uint64_t emission_reward = 0;
 
-      if (h == 0)
-      {
-        emission_reward = PREMINE_AMOUNT;
-      }
-      else
-      {
-        currency::get_block_reward(is_pos, 0, 0, already_generated_coins, emission_reward, h);
-        (is_pos ? total_generated_pos : total_generated_pow) += emission_reward;
-      }
+      currency::get_block_reward(is_pos, 0, 0, already_generated_coins, emission_reward, h);
+      (is_pos ? total_generated_pos : total_generated_pow) += emission_reward;
 
       already_generated_coins += emission_reward;
 
@@ -2346,10 +2339,11 @@ namespace currency
     bl = boost::value_initialized<block>();
 
 #ifndef TESTNET
-//    std::string genesis_coinbase_tx_hex((const char*)&ggenesis_tx_raw, sizeof(ggenesis_tx_raw));
-
+    //std::string genesis_coinbase_tx_hex((const char*)&ggenesis_tx_raw, sizeof(ggenesis_tx_raw));
+    std::string genesis_coinbase_tx_hex = "01010000010003bc7c894b88e79a5fdc524eb56922baf9e2834624ca38944c03e52e01941868e50005164aa722912742229a62eeb57a392d5f009c11cba9441be74299408184c9f2d0ea13283245433646393632464333443436303839374332434546453531443330393741413636433030304215000b023fb60e0a0000";
 #else 
-    std::string genesis_coinbase_tx_hex = "";
+    std::string genesis_coinbase_tx_hex = "01010000010003bc7c894b88e79a5fdc524eb56922baf9e2834624ca38944c03e52e01941868e50005164aa722912742229a62eeb57a392d5f009c11cba9441be74299408184c9f2d0ea13283245433646393632464333443436303839374332434546453531443330393741413636433030304215000b023fb60e0a0000";
+    //std::string genesis_coinbase_tx_hex((const char*)&ggenesis_tx_raw, sizeof(ggenesis_tx_raw));
 #endif
 
     //genesis proof phrase: "Liverpool beat Barcelona: Greatest Champions League comebacks of all time"
@@ -2898,8 +2892,8 @@ namespace currency
   //-----------------------------------------------------------------------------------------------
   uint64_t get_base_block_reward(bool is_pos, const boost::multiprecision::uint128_t& already_generated_coins, uint64_t height)
   {
-    if (!height)
-      return PREMINE_AMOUNT;
+    if (height == 0)
+      return 0;
   
     return CURRENCY_BLOCK_REWARD;
   }

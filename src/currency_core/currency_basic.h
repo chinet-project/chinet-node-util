@@ -51,7 +51,7 @@ namespace currency
   const static crypto::signature null_sig = AUTO_VAL_INIT(null_sig);
   const static crypto::key_derivation null_derivation = AUTO_VAL_INIT(null_derivation);
 
-  const static crypto::hash gdefault_genesis = epee::string_tools::hex_to_pod<crypto::hash>("CC608F59F8080E2FBFE3C8C80EB6E6A953D47CF2D6AEBD345BADA3A1CAB99852");
+  const static crypto::hash gdefault_genesis = epee::string_tools::hex_to_pod<crypto::hash>("4810016b93a02ce3571e7fc8a1bd12c86cf21965f7746965aa911d69f83cdb3e");
 
   typedef std::string payment_id_t;
 

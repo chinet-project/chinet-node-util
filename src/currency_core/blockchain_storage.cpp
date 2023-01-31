@@ -80,8 +80,8 @@ DISABLE_VS_WARNINGS(4267)
 
 namespace 
 {
-  const command_line::arg_descriptor<uint32_t>      arg_db_cache_l1 = { "db-cache-l1", "Specify size of memory mapped db cache file", 0, true };
-  const command_line::arg_descriptor<uint32_t>      arg_db_cache_l2 = { "db-cache-l2", "Specify cached elements in db helpers", 0, true };
+  const command_line::arg_descriptor<uint32_t>      arg_db_cache_l1  ( "db-cache-l1", "Specify size of memory mapped db cache file");
+  const command_line::arg_descriptor<uint32_t>      arg_db_cache_l2  ( "db-cache-l2", "Specify cached elements in db helpers");
 }
 
 //------------------------------------------------------------------
@@ -1983,7 +1983,7 @@ bool blockchain_storage::is_reorganize_required(const block_extended_info& main_
   else if (alt_chain_bei.height > m_core_runtime_config.hard_fork_01_starts_after_height)
   {
     //new rules, applied after HARD_FORK_1
-    //to learn this algo please read https://github.com/hyle-team/docs/blob/master/chinet/PoS_Analysis_and_improvements_proposal.pdf
+    //to learn this algo please read https://github.com/chinet-project/docs/blob/master/chinet/PoS_Analysis_and_improvements_proposal.pdf
 
     wide_difficulty_type difficulty_pos_at_split_point = get_x_difficulty_after_height(connection_point.height - 1, true);
     wide_difficulty_type difficulty_pow_at_split_point = get_x_difficulty_after_height(connection_point.height - 1, false);

@@ -20,11 +20,11 @@
 #define CURRENCY_MAX_BLOCK_NUMBER                       500000000
 #define CURRENCY_MAX_BLOCK_SIZE                         500000000  // block header blob limit, never used!
 #define CURRENCY_TX_MAX_ALLOWED_OUTS                    2000
-#define CURRENCY_PUBLIC_ADDRESS_BASE58_PREFIX           0xc5   // addresses start with 'Zx'
-#define CURRENCY_PUBLIC_INTEG_ADDRESS_BASE58_PREFIX     0x3678 // integrated addresses start with 'iZ'
-#define CURRENCY_PUBLIC_INTEG_ADDRESS_V2_BASE58_PREFIX  0x36f8 // integrated addresses start with 'iZ' (new format)
-#define CURRENCY_PUBLIC_AUDITABLE_ADDRESS_BASE58_PREFIX 0x98c8 // auditable addresses start with 'aZx'
-#define CURRENCY_PUBLIC_AUDITABLE_INTEG_ADDRESS_BASE58_PREFIX 0x8a49 // auditable integrated addresses start with 'aiZX'
+#define CURRENCY_PUBLIC_ADDRESS_BASE58_PREFIX           0x3055   // addresses start with 'ch'
+#define CURRENCY_PUBLIC_INTEG_ADDRESS_BASE58_PREFIX     0x2176 // integrated addresses start with 'iC'
+#define CURRENCY_PUBLIC_INTEG_ADDRESS_V2_BASE58_PREFIX  0x3746 // integrated addresses start with 'aC' (new format)
+#define CURRENCY_PUBLIC_AUDITABLE_ADDRESS_BASE58_PREFIX 0x43c6 // auditable addresses start with 'aCx'
+#define CURRENCY_PUBLIC_AUDITABLE_INTEG_ADDRESS_BASE58_PREFIX 0x1d4549 // auditable integrated addresses start with 'aiCX'
 #define CURRENCY_MINED_MONEY_UNLOCK_WINDOW              10
 #define CURRENT_TRANSACTION_VERSION                     1
 #define HF1_BLOCK_MAJOR_VERSION                         1
@@ -53,7 +53,7 @@
 #define TX_DEFAULT_FEE                                  ((uint64_t)10000000000) // .01
 #define TX_MINIMUM_FEE                                  ((uint64_t)10000000000) // .01
 
-#define CURRENCY_BLOCK_REWARD                           1000000000000 // 1.0 coin == pow(10, CURRENCY_DISPLAY_DECIMAL_POINT)
+#define CURRENCY_BLOCK_REWARD                           ((uint64_t)10000000000000) // 1.0 coin == pow(10, CURRENCY_DISPLAY_DECIMAL_POINT)
 
 
 #define WALLET_MAX_ALLOWED_OUTPUT_AMOUNT                ((uint64_t)0xffffffffffffffffLL)
@@ -180,7 +180,7 @@
 #endif
 
 //premine
-#define PREMINE_AMOUNT                                  (17517203000000000000U) // 13827203.0 reserved for coinswap, 3690000.0 - premine  
+#define PREMINE_AMOUNT                                  ((uint64_t)0) // 0 - no premine!
 
 //alias registration wallet
 #define ALIAS_REWARDS_ACCOUNT_SPEND_PUB_KEY             "0000000000000000000000000000000000000000000000000000000000000000" //burn alias money
@@ -212,7 +212,7 @@
 #define GUI_SECURE_CONFIG_FILENAME                      "gui_secure_conf.bin"
 #define GUI_CONFIG_FILENAME                             "gui_settings.json"
 #define GUI_INTERNAL_CONFIG2                            "gui_internal_config.json"
-
+#define GUI_IPC_MESSAGE_CHANNEL_NAME                    CURRENCY_NAME_BASE "_message_que"
 
 
 #define CURRENT_TRANSACTION_CHAIN_ENTRY_ARCHIVE_VER     3
@@ -238,17 +238,16 @@
 #define BLOCK_MINOR_VERSION_GENESIS                     0
 #define BLOCK_MAJOR_VERSION_INITIAL                     0
 #ifndef TESTNET
-#define CHN_HARDFORK_01_AFTER_HEIGHT                   194624
-#define CHN_HARDFORK_02_AFTER_HEIGHT                   999999
-#define CHN_HARDFORK_03_AFTER_HEIGHT                   1082577
+#define CHN_HARDFORK_01_AFTER_HEIGHT                   0
+#define CHN_HARDFORK_02_AFTER_HEIGHT                   0
+#define CHN_HARDFORK_03_AFTER_HEIGHT                   0
 #else
-#define CHN_HARDFORK_01_AFTER_HEIGHT                   1440
-#define CHN_HARDFORK_02_AFTER_HEIGHT                   1800
-#define CHN_HARDFORK_03_AFTER_HEIGHT                   1801
+#define CHN_HARDFORK_01_AFTER_HEIGHT                   0
+#define CHN_HARDFORK_02_AFTER_HEIGHT                   0
+#define CHN_HARDFORK_03_AFTER_HEIGHT                   0
 #endif
-
-
 
 static_assert(CURRENCY_MINER_TX_MAX_OUTS <= CURRENCY_TX_MAX_ALLOWED_OUTS, "Miner tx must obey normal tx max outs limit");
 static_assert(PREMINE_AMOUNT / WALLET_MAX_ALLOWED_OUTPUT_AMOUNT < CURRENCY_MINER_TX_MAX_OUTS, "Premine can't be divided into reasonable number of outs");
 
+#define CURRENCY_RELAY_TXS_MAX_COUNT                    5

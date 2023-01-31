@@ -1,4 +1,4 @@
-// Copyright (c) 2019, anonimal <anonimal@chinet.org>
+// Copyright (c) 2019, anonimal <anonimal@chinet.io>
 // Copyright (c) 2006-2013, Andrey N. Sabelnikov, www.sabelnikov.net
 // All rights reserved.
 //
@@ -693,7 +693,7 @@ bool boosted_tcp_server<t_protocol_handler>::connect(const std::string& adr, con
     shared_context->cond.notify_one();
   };
 
-  sock_.async_connect(remote_endpoint, boost::bind<void>(connect_callback, _1, local_shared_context));
+  sock_.async_connect(remote_endpoint, boost::bind<void>(connect_callback, boost::placeholders::_1, local_shared_context));
   while(local_shared_context->ec == boost::asio::error::would_block) {
     bool r = false;
     try {

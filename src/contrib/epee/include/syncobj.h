@@ -1,5 +1,5 @@
 ﻿// Copyright (c) 2019, Chinet Project
-// Copyright (c) 2019, anonimal, <anonimal@chinet.org>
+// Copyright (c) 2019, anonimal, <anonimal@chinet.io>
 // Copyright (c) 2006-2013, Andrey N. Sabelnikov, www.sabelnikov.net
 // All rights reserved.
 // 
